@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool checkWalk;
+    private bool checkWalk, checkMove;
     private float speedHorizontal, timeJump;
     public float speed;
 
@@ -37,14 +37,14 @@ public class PlayerController : MonoBehaviour
     {
         speedHorizontal = Input.GetAxisRaw("Horizontal");
 
-        if (speedHorizontal > 0 && checkWalk == false)
+        if (speedHorizontal > 0)
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
             this.gameObject.GetComponent<Animator>().SetFloat("SpeedHorizontal", speedHorizontal);
             this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
             this.gameObject.GetComponent<Animator>().SetBool("Idle", false);
         }
-        else if (speedHorizontal < 0 && checkWalk == false)
+        else if (speedHorizontal < 0)
         {
             transform.Translate(Vector2.left * speed * Time.deltaTime);
             this.gameObject.GetComponent<Animator>().SetFloat("SpeedHorizontal", -speedHorizontal);
@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
             this.gameObject.GetComponent<Animator>().SetBool("Jump", false);
             this.gameObject.GetComponent<Animator>().SetBool("ToFall", true);
             checkWalk = true;
+            checkMove = true;
             timeJump = 0.5f;
         }
         else
@@ -79,6 +80,11 @@ public class PlayerController : MonoBehaviour
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("tagGround"))
+        {
             this.gameObject.GetComponent<Animator>().SetBool("Jump", true);
+            checkWalk = false;
+            checkMove = false;
+        }
+
     }
 }
