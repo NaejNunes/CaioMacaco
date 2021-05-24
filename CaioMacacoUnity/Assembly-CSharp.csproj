@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ControlladorHome.cs" />
     <Compile Include="Assets\Scripts\ControllerGamePlay.cs" />
+    <Compile Include="Assets\Scripts\GalhoControle.cs" />
     <Compile Include="Assets\Scripts\Parallax.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Reference Include="Cinemachine">
